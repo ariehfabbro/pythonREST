@@ -1,3 +1,5 @@
+#Program uses a webservice to retrieve a json with the number os vacancies of a user
+
 import urllib.request as ur
 import json
 
