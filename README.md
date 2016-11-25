@@ -1,7 +1,9 @@
 # pythonREST
 
-Como executar?
+How to execute?
 
-Entre no terminal, vá ao diretório do arquivo e execute o seguinte comando:
+Enter the terminal, go to the file directory and run the following command:
 
-`python rest.py`
+`python rest.py [parameter]`
+
+Python version: 3.4.4
