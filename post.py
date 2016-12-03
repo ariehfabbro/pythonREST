@@ -5,6 +5,7 @@ import requests
 from time import gmtime, strftime
 import datetime
 
+#function controls the input to get the correct input with yes/no questions
 def askBoolean(string):
     while True:
         answer = input(string + "? (yes/no) ")
@@ -13,7 +14,8 @@ def askBoolean(string):
         elif answer == 'no':
             return False
         print("Type yes or no only")
-        
+
+#function controls the input to get the correct input with yes/no questions
 def checkAccountType():
     while True:
         answer = input("Enter the account type (pf/pj): ")
@@ -21,6 +23,7 @@ def checkAccountType():
             return answer
         print("Type pf or pj only")
 
+#function controls the input to get the correct input with numbers
 def askInput(string, type_input):
     while True:
         try:
@@ -33,6 +36,7 @@ def askInput(string, type_input):
             print("Input was not a number. Try again")
             
 def postVacancy():
+    #create the json with user inputs
     body = {}
     hirer = {}
     location = {}
@@ -88,6 +92,7 @@ def postVacancy():
     body["salary_requirements"] = 1100 #askInput("salary requirements", "int")
     body["characteristics"] = []
     
+    #use the command POST to insert a new vacancy
     url = "http://ec2-35-164-223-211.us-west-2.compute.amazonaws.com/opportunities"
     response = requests.post(url, json=body)
     print(response.text)
