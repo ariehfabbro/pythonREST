@@ -5,7 +5,7 @@ import json
 import sys
 
 def getVacancy(id_user):
-    response = ur.urlopen("http://ec2-35-164-139-210.us-west-2.compute.amazonaws.com/hirers/" + sys.argv[1] + "/opportunities")
+    response = ur.urlopen("http://ec2-35-164-223-211.us-west-2.compute.amazonaws.com/hirers/" + id_user + "/opportunities")
     html_page = response.read().decode()
     json_received = json.loads(html_page)
     print("Number of vacancies: " + str(len(json_received)))
