@@ -3,7 +3,6 @@
 import json
 import requests
 from time import gmtime, strftime
-import datetime
 
 #function controls the input to get the correct input with yes/no questions
 def askBoolean(string):
@@ -42,63 +41,64 @@ def postVacancy():
     location = {}
     category = {}
     
-    print("About the vacancy")
-    body["id"] = 987654 #askInput("id", "int")
-    body["title"] = "teste" #input("Enter the title: ")
-    body["description"] = "Casal sem filhos" #input("Enter the description: ")
+    print("About the vacancy\n")
+    body["id"] = askInput("id", "int")
+    body["title"] = input("Enter the title: ")
+    body["description"] = input("Enter the description: ")
     body["created_at"] = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-    body["is_contact_available"] = True #askBoolean("Is contact available")
-    body["is_active"] = True #askBoolean("Is active")
+    body["is_contact_available"] = askBoolean("Is contact available")
+    body["is_active"] = askBoolean("Is active")
         
-    print("About the hirer of the vacancy")
-    hirer["id"] = 2314 #askInput("id", "int")
-    hirer["name"] = "Felipe Matos Dos Santos" #input("Enter the name: ")
-    hirer["account_type"] = "pf" #checkAccountType()
-    hirer["cnpj"] = 412312 #askInput("cnpj", "int")
-    hirer["company_contact_name"] = "Empresa Teste" #input("Enter company contact name: ")
-    hirer["phone"] = "(21) 99870-0327" #input("Enter the phone: ")
-    hirer["email"] = "felipe_med@yahoo.com.br" #input("Enter the e-mail: ")
-    hirer["mobile_phone"] = "(21) 93234-8378" #input("Enter the mobile phone: ")
-    hirer["is_plan_active"] = True #askBoolean("Is plan active")
+    print("\nAbout the hirer of the vacancy\n")
+    hirer["id"] = askInput("id", "int")
+    hirer["name"] = input("Enter the name: ")
+    hirer["account_type"] = checkAccountType()
+    hirer["cnpj"] = askInput("cnpj", "int")
+    hirer["company_contact_name"] = input("Enter company contact name: ")
+    hirer["phone"] = input("Enter the phone: ")
+    hirer["email"] = input("Enter the e-mail: ")
+    hirer["mobile_phone"] = input("Enter the mobile phone: ")
+    hirer["is_plan_active"] = askBoolean("Is plan active")
     body["hirer"] = hirer
         
-    print("About the location of the vacancy")
-    location["neighborhood"] = "Ipanema" #input("Enter the neighborhood: ")
-    location["address"] = "Prudente de Morais" #input("Enter the address: ")
-    location["address_type"] = "Rua" #input("Enter the address type: ")
-    location["latitude"] = -22.9851707 #askInput("latitude", "float")
-    location["longitude"] = -43.2071601 #askInput("longitude", "float")
-    location["city_id"] = "6861" #str(askInput("city id", "int"))
-    location["city"] = "Rio de Janeiro" #input("Enter the city: ")
-    location["zipcode"] = "22420043" #str(askInput("zipcode", "int"))
-    location["state"] = "RJ" #input("Enter the state: ")
+    print("\nAbout the location of the vacancy\n")
+    location["neighborhood"] = input("Enter the neighborhood: ")
+    location["address"] = input("Enter the address: ")
+    location["address_type"] = input("Enter the address type: ")
+    location["latitude"] = askInput("latitude", "float")
+    location["longitude"] = askInput("longitude", "float")
+    location["city_id"] = str(askInput("city id", "int"))
+    location["city"] = input("Enter the city: ")
+    location["zipcode"] = str(askInput("zipcode", "int"))
+    location["state"] = input("Enter the state: ")
     body["location"] = location
         
-    print("About the category of the vacancy")
-    category["id"] = 1 #askInput("id", "int")
-    category["name"] = "Empregada" #input("Enter the name: ")
+    print("\nAbout the category of the vacancy\n")
+    category["id"] = askInput("id", "int")
+    category["name"] = input("Enter the name: ")
     body["category"] = category
         
-    print("More information about the vacancy")
-    body["frequency"] = "mensalista_2x" #input("Enter the frequency: ")
-    body["is_automatic"] = False #askBoolean("Is automatic")
-    body["score"] = 3 #askInput("score", "int")    
-    body["starts"] = "esse mes" #input("When it starts: ")
-    body["amount_candidates"] = 19 #askInput("amount of candidates", "int")
-    body["amount_visualizations"] = 58 #askInput("amount ofvisualizations", "int")
-    body["feedback"] = "" #input("Enter the feedback: ")
-    body["salary_research"] = "" #input("Enter the salary research: ")
-    body["relevancy"] = "" #input("Enter the relevancy: ")
-    body["salary_requirements"] = 1100 #askInput("salary requirements", "int")
+    print("\nMore information about the vacancy\n")
+    body["frequency"] = input("Enter the frequency: ")
+    body["is_automatic"] = askBoolean("Is automatic")
+    body["score"] = askInput("score", "int")    
+    body["starts"] = input("When it starts: ")
+    body["amount_candidates"] = askInput("amount of candidates", "int")
+    body["amount_visualizations"] = askInput("amount of visualizations", "int")
+    body["feedback"] = input("Enter the feedback: ")
+    body["salary_research"] = input("Enter the salary research: ")
+    body["relevancy"] = input("Enter the relevancy: ")
+    body["salary_requirements"] = askInput("salary requirements", "int")
     body["characteristics"] = []
     
-    #use the command POST to insert a new vacancy
-    url = "http://ec2-35-164-223-211.us-west-2.compute.amazonaws.com/opportunities"
-    response = requests.post(url, json=body)
-    print(response.text)
-    print(response.status_code)
-    print(response.reason)
-    print(body)
+    try:
+        #use the command POST to insert a new vacancy
+        url = "http://ec2-35-164-223-211.us-west-2.compute.amazonaws.com/opportunities"
+        response = requests.post(url, json=body)
+        print("\nVacancy added successfully")
+    except requests.exceptions.RequestException as e:
+        #A error occurred such as ConnectionError or InvalidURL
+        print("Error: {}".format(e))
 
 if __name__ == '__main__':
     postVacancy()
